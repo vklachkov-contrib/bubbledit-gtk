@@ -1,0 +1,22 @@
+[package]
+name = "bubbledit-gtk"
+description = "A tool to manipulate bubble memory images"
+authors = ["F. Ulivi"]
+homepage = "https://github.com/fulivi/bubbledit-gtk"
+version = "1.0.0"
+edition = "2024"
+readme = "README.md"
+license = "GPL-2.0-or-later"
+
+[dependencies]
+gtk = { version = "0.9.6", package = "gtk4", features = ["v4_18"] }
+rand = "0.10.0"
+
+[build-dependencies]
+glib-build-tools = "0.21.0"
+gio = "0.21.5"
+glib = "0.21.5"
+gio-sys = "0.21.5"
+glib-macros = "0.21.5"
+glib-sys = "0.21.5"
+gobject-sys = "0.21.5"

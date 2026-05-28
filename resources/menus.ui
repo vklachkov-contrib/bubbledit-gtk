@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<interface>
+  <requires lib="gio" version="2.0"/>
+  <requires lib="gtk" version="4.14"/>
+      <menu id="menubar">
+        <submenu>
+          <attribute name="label">File</attribute>
+          <item>
+            <attribute name="action">my.new</attribute>
+            <attribute name="icon">document-new-symbolic</attribute>
+            <attribute name="label">New</attribute>
+          </item>
+          <item>
+            <attribute name="action">my.load</attribute>
+            <attribute name="icon">document-open-symbolic</attribute>
+            <attribute name="label">Load</attribute>
+          </item>
+          <item>
+            <attribute name="action">my.save</attribute>
+            <attribute name="icon">document-save-symbolic</attribute>
+            <attribute name="label">Save</attribute>
+          </item>
+          <item>
+            <attribute name="action">window.close</attribute>
+            <attribute name="icon">window-close-symbolic</attribute>
+            <attribute name="label">Quit</attribute>
+          </item>
+        </submenu>
+        <submenu>
+          <attribute name="label">Image</attribute>
+          <item>
+            <attribute name="action">my.img_clear</attribute>
+            <attribute name="label">Clear</attribute>
+          </item>
+          <item>
+            <attribute name="action">my.img_load</attribute>
+            <attribute name="label">Load</attribute>
+          </item>
+          <item>
+            <attribute name="action">my.img_save</attribute>
+            <attribute name="label">Save</attribute>
+          </item>
+          <item>
+            <attribute name="action">my.img_fix</attribute>
+            <attribute name="label">Fix</attribute>
+          </item>
+        </submenu>
+      </menu>
+</interface>

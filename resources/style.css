@@ -1,0 +1,12 @@
+.monofont {
+    font-family: monospace;
+}
+.code_ok {
+    color: black;
+}
+.code_corr {
+    color: orange;
+}
+.code_uncorr {
+    color: red;
+}

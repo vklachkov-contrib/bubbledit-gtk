@@ -1,0 +1,452 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.94.1 -->
+<interface>
+  <!-- interface-name window.ui -->
+  <requires lib="gio" version="2.0"/>
+  <requires lib="gtk" version="4.14"/>
+  <template class="MyGtkAppWindow" parent="GtkApplicationWindow">
+    <property name="show-menubar">True</property>
+    <property name="titlebar">
+      <object class="GtkHeaderBar">
+        <property name="title-widget">
+          <object class="GtkLabel" id="title">
+            <property name="label">&lt;b&gt;Bubbledit-gtk&lt;/b&gt;</property>
+            <property name="use-markup">True</property>
+          </object>
+        </property>
+        <child type="start">
+          <object class="GtkMenuButton">
+            <property name="icon-name">open-menu-symbolic</property>
+            <property name="menu-model">
+              <menu>
+                <submenu>
+                  <attribute name="label">File</attribute>
+                  <item>
+                    <attribute name="action">my.new</attribute>
+                    <attribute name="icon">document-new-symbolic</attribute>
+                    <attribute name="label">New</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">my.load</attribute>
+                    <attribute name="icon">document-open-symbolic</attribute>
+                    <attribute name="label">Load</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">my.save</attribute>
+                    <attribute name="icon">document-save-symbolic</attribute>
+                    <attribute name="label">Save</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">window.close</attribute>
+                    <attribute name="icon">window-close-symbolic</attribute>
+                    <attribute name="label">Quit</attribute>
+                  </item>
+                </submenu>
+                <submenu>
+                  <attribute name="label">Image</attribute>
+                  <item>
+                    <attribute name="action">my.img_clear</attribute>
+                    <attribute name="label">Clear</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">my.img_load</attribute>
+                    <attribute name="label">Load</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">my.img_save</attribute>
+                    <attribute name="label">Save</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">my.img_fix</attribute>
+                    <attribute name="label">Fix</attribute>
+                  </item>
+                  <item>
+                    <attribute name="action">my.img_stat</attribute>
+                    <attribute name="label">Statistics</attribute>
+                  </item>
+                </submenu>
+                <submenu>
+                  <attribute name="label">Help</attribute>
+                  <item>
+                    <attribute name="action">my.about</attribute>
+                    <attribute name="label">About</attribute>
+                  </item>
+                </submenu>
+              </menu>
+            </property>
+            <property name="primary">True</property>
+          </object>
+        </child>
+      </object>
+    </property>
+    <child>
+      <object class="GtkNotebook" id="notebook">
+        <property name="page">2</property>
+        <signal name="switch-page" handler="handle_switch_page" swapped="yes"/>
+        <child>
+          <object class="GtkGrid" id="bl_page">
+            <property name="column-homogeneous">True</property>
+            <property name="row-homogeneous">True</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Bootloop</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="column-span">1</property>
+                  <property name="row">0</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Channel A</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="column-span">1</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="bl_bootloop">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">80</property>
+                <signal name="activate" handler="handle_bl_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">4</property>
+                  <property name="row">0</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="bl_ch_a">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">40</property>
+                <signal name="activate" handler="handle_bl_ch_a_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">2</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Channel B</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="bl_ch_b">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">40</property>
+                <signal name="activate" handler="handle_bl_ch_b_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">2</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="bl_ch_a_ones">
+                <property name="label">XXX 1s</property>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="column-span">1</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="bl_ch_b_ones">
+                <property name="label">XXX 1s</property>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="bl_random">
+                <property name="label">Random</property>
+                <signal name="clicked" handler="handle_bl_random_clicked" swapped="yes"/>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">1</property>
+                  <property name="row">4</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel">
+            <property name="label">BL</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="log_page">
+            <property name="column-homogeneous">True</property>
+            <property name="row-homogeneous">True</property>
+            <child>
+              <object class="GtkSpinButton" id="log_spin">
+                <property name="adjustment">
+                  <object class="GtkAdjustment">
+                    <property name="step-increment">1.0</property>
+                    <property name="upper">2047.0</property>
+                  </object>
+                </property>
+                <property name="numeric">True</property>
+                <property name="wrap">True</property>
+                <signal name="value-changed" handler="handle_log_la_changed" swapped="yes"/>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="column-span">1</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="log_data">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">128</property>
+                <signal name="activate" handler="handle_log_data_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">4</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="log_ch_a_code">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">4</property>
+                <signal name="activate" handler="handle_ch_a_code_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="log_address">
+                <property name="css-classes">monofont</property>
+                <property name="label">LA XXX PA XXX</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Regen</property>
+                <signal name="clicked" handler="handle_log_regen_clicked" swapped="yes"/>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="log_ch_a_correct">
+                <property name="label">Ok</property>
+                <signal name="clicked" handler="handle_ch_a_correct_clicked" swapped="yes"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Ch. A</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Ch. B</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="row">3</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="log_ch_b_code">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">4</property>
+                <signal name="activate" handler="handle_ch_b_code_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="column-span">1</property>
+                  <property name="row">3</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="log_ch_b_correct">
+                <property name="label">Ok</property>
+                <signal name="clicked" handler="handle_ch_b_correct_clicked" swapped="yes"/>
+                <layout>
+                  <property name="column">4</property>
+                  <property name="column-span">1</property>
+                  <property name="row">3</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="log_ascii">
+                <property name="css-classes">monofont</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">4</property>
+                  <property name="row">0</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel">
+            <property name="label">Logical</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkGrid" id="phy_page">
+            <property name="column-homogeneous">True</property>
+            <property name="row-homogeneous">True</property>
+            <child>
+              <object class="GtkSpinButton" id="phy_spin">
+                <property name="adjustment">
+                  <object class="GtkAdjustment">
+                    <property name="step-increment">1.0</property>
+                    <property name="upper">4095.0</property>
+                  </object>
+                </property>
+                <property name="wrap">True</property>
+                <signal name="value-changed" handler="handle_phy_pa_changed" swapped="yes"/>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="column-span">1</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel" id="phy_address">
+                <property name="label">LA XXX PA XXX</property>
+                <layout>
+                  <property name="column">0</property>
+                  <property name="row">0</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Ch. A</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">1</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Ch. B</property>
+                <layout>
+                  <property name="column">1</property>
+                  <property name="column-span">1</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="phy_ch_a">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">40</property>
+                <signal name="activate" handler="handle_phy_ch_a_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="column-span">2</property>
+                  <property name="row">1</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="phy_ch_b">
+                <property name="css-classes">monofont</property>
+                <property name="max-length">40</property>
+                <signal name="activate" handler="handle_phy_ch_b_activate" swapped="yes"/>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="column-span">2</property>
+                  <property name="row">2</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="phy_skip">
+                <property name="label">Hide bad loops</property>
+                <signal name="toggled" handler="handle_phy_skip_toggled" swapped="yes"/>
+                <layout>
+                  <property name="column">2</property>
+                  <property name="column-span">1</property>
+                  <property name="row">3</property>
+                  <property name="row-span">1</property>
+                </layout>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="tab">
+          <object class="GtkLabel">
+            <property name="label">Physical</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
