@@ -18,6 +18,7 @@
 // along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
 
+mod converter;
 mod imp;
 
 use glib::Object;
@@ -120,6 +121,15 @@ impl Window {
                 }
             ))
             .build();
+        let action_convert_img = ActionEntryBuilder::<SimpleActionGroup>::new("convert_img")
+            .activate(clone!(
+                #[weak]
+                win,
+                move |_, _, _| {
+                    win.convert_img();
+                }
+            ))
+            .build();
         let action_about = ActionEntryBuilder::<SimpleActionGroup>::new("about")
             .activate(clone!(
                 #[weak]
@@ -138,6 +148,7 @@ impl Window {
             action_img_save,
             action_img_fix,
             action_img_stat,
+            action_convert_img,
             action_about,
         ]);
         self.insert_action_group("my", Some(&actions));

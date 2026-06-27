@@ -21,7 +21,6 @@
 use core::fmt;
 use rand::prelude::*;
 use std::fmt::Write as _;
-use std::fs::File;
 use std::io::prelude::*;
 use std::io::{self, Error};
 use std::iter::zip;
@@ -63,7 +62,7 @@ const MIN_ONES: usize = 136;
 /// Size of a logical page with EC enabled (bytes)
 const LOG_PAGE_SIZE: usize = (PAYLOAD_BITS * CH_PER_MEM) / 8;
 /// Size of full memory image (bytes)
-const IMG_SIZE: usize = LOG_PAGE_SIZE * LOG_ADDRS as usize;
+pub const IMG_SIZE: usize = LOG_PAGE_SIZE * LOG_ADDRS as usize;
 
 enum SyncState {
     WaitPreSync,
@@ -466,7 +465,7 @@ impl ChannelMemory {
     pub fn new() -> ChannelMemory {
         Default::default()
     }
-    pub fn load(&mut self, inp: &mut File, ch: Channel) -> io::Result<()> {
+    pub fn load<R: Read>(&mut self, inp: &mut R, ch: Channel) -> io::Result<()> {
         let mut mem = ChannelMemory::new();
 
         let mut pezzo: [u8; ENC_LOOP_SIZE] = [0; ENC_LOOP_SIZE];
@@ -489,7 +488,7 @@ impl ChannelMemory {
         *self = mem;
         Ok(())
     }
-    pub fn save(&self, out: &mut File, bl: &Bootloop) -> io::Result<()> {
+    pub fn save<W: Write>(&self, out: &mut W, bl: &Bootloop) -> io::Result<()> {
         if let Some(off) = self.offset {
             let bl_loop = bl.save_to_loop(off as usize);
             let mut pezzo: [u8; ENC_LOOP_SIZE] = [0; ENC_LOOP_SIZE];
@@ -972,7 +971,7 @@ impl Memory {
         self.curr_addr = CurrentAddr::None;
         self.dirty = false;
     }
-    pub fn load(&mut self, inp: &mut File) -> io::Result<()> {
+    pub fn load<R: Read>(&mut self, inp: &mut R) -> io::Result<()> {
         let mut mem = Self::new();
         mem.chs[Channel::ChannelA as usize].load(inp, Channel::ChannelA)?;
         mem.chs[Channel::ChannelB as usize].load(inp, Channel::ChannelB)?;
@@ -980,7 +979,7 @@ impl Memory {
         *self = mem;
         Ok(())
     }
-    pub fn data_load(&mut self, inp: &mut File) -> io::Result<()> {
+    pub fn data_load<R: Read>(&mut self, inp: &mut R) -> io::Result<()> {
         let mut image = [0_u8; IMG_SIZE];
         inp.read_exact(&mut image)?;
         for la in 0..LOG_ADDRS {
@@ -997,7 +996,7 @@ impl Memory {
         self.dirty = true;
         Ok(())
     }
-    pub fn save(&mut self, out: &mut File) -> io::Result<()> {
+    pub fn save<W: Write>(&mut self, out: &mut W) -> io::Result<()> {
         let ch_a = self.chs[Channel::ChannelA as usize].get_bl();
         let ch_b = self.chs[Channel::ChannelB as usize].get_bl();
         let mut bl = Bootloop::new();
@@ -1008,7 +1007,7 @@ impl Memory {
         self.dirty = false;
         Ok(())
     }
-    pub fn data_save(&mut self, out: &mut File) -> io::Result<(usize, usize, usize)> {
+    pub fn data_save<W: Write>(&mut self, out: &mut W) -> io::Result<(usize, usize, usize)> {
         let mut image = [0_u8; IMG_SIZE];
         let mut cnt_ok = 0_usize;
         let mut cnt_corrected = 0_usize;

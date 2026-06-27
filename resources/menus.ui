@@ -45,5 +45,12 @@
             <attribute name="label">Fix</attribute>
           </item>
         </submenu>
+        <submenu>
+          <attribute name="label">Convert</attribute>
+          <item>
+            <attribute name="action">my.convert_img</attribute>
+            <attribute name="label">Convert img file</attribute>
+          </item>
+        </submenu>
       </menu>
 </interface>

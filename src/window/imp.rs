@@ -903,6 +903,10 @@ impl Window {
             self.disp_counters(cnt);
         }
     }
+    pub fn convert_img(&self) {
+        let c = self.obj();
+        super::converter::open(c.upcast_ref::<gtk::Window>());
+    }
     pub fn about(&self) {
         let c = self.obj();
         let app_window = c.upcast_ref::<gtk::Window>();
